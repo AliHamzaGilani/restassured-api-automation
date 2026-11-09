@@ -21,7 +21,9 @@ public class BookingClient {
         spec = new RequestSpecBuilder()
                 .setBaseUri(System.getProperty("baseUrl", "https://restful-booker.herokuapp.com"))
                 .setContentType(ContentType.JSON)
-                .setAccept(ContentType.JSON)
+                // Restful Booker returns 418 unless Accept is exactly application/json,
+                // so don't use ContentType.JSON here (it sends several JSON media types).
+                .setAccept("application/json")
                 .build();
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails(LogDetail.ALL);
     }
